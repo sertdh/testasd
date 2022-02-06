@@ -1,6 +1,6 @@
 /**
-* Template Name: Delicious - v4.7.1
-* Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
+* Template Name: Restaurantly - v3.7.0
+* Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
@@ -97,6 +97,8 @@
     onscroll(document, headerScrolled)
   }
 
+
+
   /**
    * Back to top button
    */
@@ -162,16 +164,14 @@
   });
 
   /**
-   * Hero carousel indicators
+   * Preloader
    */
-  let heroCarouselIndicators = select("#hero-carousel-indicators")
-  let heroCarouselItems = select('#heroCarousel .carousel-item', true)
-
-  heroCarouselItems.forEach((item, index) => {
-    (index === 0) ?
-    heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>":
-      heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
-  });
+  let preloader = select('#preloader');
+  if (preloader) {
+    window.addEventListener('load', () => {
+      preloader.remove()
+    });
+  }
 
   /**
    * Menu isotope and filter
@@ -196,6 +196,7 @@
         menuIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
+        
 
       }, true);
     }
@@ -203,7 +204,14 @@
   });
 
   /**
-   * Testimonials slider
+   * Initiate glightbox 
+   */
+  const glightbox = GLightbox({
+    selector: '.glightbox'
+  });
+
+  /**
+   * Events slider
    */
   new Swiper('.events-slider', {
     speed: 600,
@@ -221,13 +229,6 @@
   });
 
   /**
-   * Initiate gallery lightbox 
-   */
-  const galleryLightbox = GLightbox({
-    selector: '.gallery-lightbox'
-  });
-
-  /**
    * Testimonials slider
    */
   new Swiper('.testimonials-slider', {
@@ -242,7 +243,37 @@
       el: '.swiper-pagination',
       type: 'bullets',
       clickable: true
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 20
+      },
+
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      }
     }
+  });
+
+  /**
+   * Initiate gallery lightbox 
+   */
+  const galleryLightbox = GLightbox({
+    selector: '.gallery-lightbox'
+  });
+
+  /**
+   * Animation on scroll
+   */
+  window.addEventListener('load', () => {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    })
   });
 
 })()
